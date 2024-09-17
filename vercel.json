@@ -1,0 +1,30 @@
+{
+    "version": 2,
+    "builds": [
+        {
+            "src": "test_django_vercel/wsgi.py",
+            "use": "@vercel/python",
+            "config": {
+                "maxLambdaSize": "15mb",
+                "runtime": "python312"
+            }
+        
+        },
+        {
+            "src": "build.sh",
+            "use": "@vercel/static-build",
+            "config": {
+                "distDir": "staticfiles_build"
+            }
+        }
+    ],
+    "routes": [
+        {
+            "src": "/static/(.*)",
+            "dest": "/static/$1"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "test_django_vercel/wsgi.py"
+        }
+    ]}
